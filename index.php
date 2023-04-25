@@ -1,0 +1,38 @@
+<html>
+   <body>
+      <a href="all_pokemon.php">See all pokemon</a>
+      <a href="queries.php">queries.php</a>
+      <a href="query.php">query.php</a>
+   </body>
+</html>
+<?php
+switch (@parse_url($_SERVER['REQUEST_URI'])['path']) {
+   case '/':                   // URL (without file name) to a default screen
+      require 'all_pokemon.php';
+      break; 
+   case '/all_pokemon.php':
+      require 'all_pokemon.php';
+      break;
+   case '/test.php':
+      require 'test.php';
+      break;
+   case '/simpleform.php':     // if you plan to also allow a URL with the file name 
+      require 'simpleform.php';
+      break;              
+   case '/contact.php':
+      require 'contact.php';
+      break;
+   case '/query.php':
+      require 'query.php';
+      break;
+   case '/queries.php':
+      require 'queries.php';
+      break;
+   case 'connect-db.php':
+      require 'connect-db.php';
+      break;
+   default:
+      http_response_code(404);
+      exit('Not Found');
+}  
+?>

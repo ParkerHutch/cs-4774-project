@@ -1,0 +1,9 @@
+# Use the PHP 7.4 
+runtime: php74
+
+# Defaults to "serve index.php" 
+# entrypoint: serve helloworld.php
+# entrypoint: serve simpleform.php
+# runtime: php74
+entrypoint: serve index.php #connect-db.php
+# if main page is index.php, comment the above entrypoint setting line
