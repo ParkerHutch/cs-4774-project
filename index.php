@@ -3,6 +3,8 @@
       <a href="all_pokemon.php">See all pokemon</a>
       <a href="queries.php">queries.php</a>
       <a href="query.php">query.php</a>
+      <a href="trainers.php">Trainers</a>
+      <a href="trainer_profile.php">Trainer Profile</a>
    </body>
 </html>
 <?php
@@ -12,6 +14,12 @@ switch (@parse_url($_SERVER['REQUEST_URI'])['path']) {
       break; 
    case '/all_pokemon.php':
       require 'all_pokemon.php';
+      break;
+   case '/trainers.php':
+      require 'trainers.php';
+      break;
+   case '/trainer_profile.php':
+      require 'trainer_profile.php';
       break;
    case '/test.php':
       require 'test.php';
