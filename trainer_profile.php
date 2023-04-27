@@ -1,16 +1,22 @@
-
+<?php include('header.php'); ?>
 <html>
+    <head>
+        <link rel="stylesheet" href="text-style2.css">
+        <link rel="stylesheet" href="pokemon.css">
+        <link rel="stylesheet" href="form.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-QpSt0Xl20MKA1Au/CpWn8lWgLv5gMlT0E3U035rZ2KLQ24dOR0U7H5Uew+5U6I+x" crossorigin="anonymous">
+    </head>
    <h1>Trainer Profile Page</h1>
    
 </html>
 <?php
-
+/*
 $username = 'root';
 $password = 'Tonyle1!';
 $host = 'cs-4750-project-381321:us-east4:cs-4750-project';
 $dbname = 'Pokemon';
 $dsn = "mysql:unix_socket=/cloudsql/cs-4750-project-381321:us-east4:cs-4750-project;dbname=Pokemon";
-
+r
 $loggedInTrainerId = 2; // TODO replace '2' with the logged-in trainer's ID in the future
 $get_trainer_sql = "SELECT trainerID, name, friendGroup FROM trainer WHERE trainerID = $loggedInTrainerId"; 
 $get_trainer_region_sql = "SELECT name FROM region WHERE regionID = (SELECT regionID FROM is_from WHERE trainerID = $loggedInTrainerId)";
@@ -116,4 +122,4 @@ catch (Exception $e)
 }
 
 ?>
-
+*/
