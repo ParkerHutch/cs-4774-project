@@ -1,13 +1,7 @@
 
 <html>
    <h1>Trainer Profile Page</h1>
-   <form method="post">
-      <h4>Change Region</h4>
-      <input type = "submit" name = "north-button" value="north-button" />
-      <input type = "submit" name = "south-button" value="South" />
-      <input type = "submit" name = "east-button" value="east-button" />
-      <input type = "submit" name = "west-button" value="west-button" />
-   </form>
+   
 </html>
 <?php
 
@@ -28,7 +22,7 @@ function executeQuery($queryStatement, $dsn, $username, $password) {
    try {
       $db = new PDO($dsn, $username, $password);
       $db->query($queryStatement);
-      echo "<p>Ran query: $queryStatement</p>";
+      //echo "<p>Ran query: $queryStatement</p>";
    } catch (PDOException $e)
    {
       $error_message = $e->getMessage();
@@ -43,23 +37,16 @@ function executeQuery($queryStatement, $dsn, $username, $password) {
 if (isset($_POST['north-button'])) {
    $change_region_sql = "UPDATE is_from SET regionID = 1 WHERE trainerID = $loggedInTrainerId";
    executeQuery($change_region_sql, $dsn, $username, $password);
-   echo "<p>North button was pressed</p>";
 } else if (isset($_POST['south-button'])) {
    $change_region_sql = "UPDATE is_from SET regionID = 2 WHERE trainerID = $loggedInTrainerId";
    executeQuery($change_region_sql, $dsn, $username, $password);
-   echo "<p>South button was pressed</p>";
 } else if (isset($_POST['east-button'])) {
    $change_region_sql = "UPDATE is_from SET regionID = 3 WHERE trainerID = $loggedInTrainerId";
    executeQuery($change_region_sql, $dsn, $username, $password);
-   echo "<p>East button pressed.</p>";
 } else if (isset($_POST['west-button'])) {
    $change_region_sql = "UPDATE is_from SET regionID = 4 WHERE trainerID = $loggedInTrainerId";
    executeQuery($change_region_sql, $dsn, $username, $password);
-   echo "<p>West button was pressed</p>";
-} else {
-   echo "<p>No button pressed</p>";
-}
-echo "<p>Here!</p>";
+} 
 try
 {
    $db = new PDO($dsn, $username, $password);
@@ -72,11 +59,24 @@ try
       echo "<p>Your trainer ID is {$row[trainerID]}</p>";
    }
    
+   echo "<h2>Region</h2>";
    foreach ($db->query($get_trainer_region_sql) as $row) {
 
       echo "<p>Your region: <strong>{$row[name]}</strong></p>";
    }
+   echo "
+      <form method='post'>
+         <div>
+            <h4>Change Region</h4>
+            <input type = 'submit' name = 'north-button' value='North' />
+            <input type = 'submit' name = 'south-button' value='South' />
+            <input type = 'submit' name = 'east-button' value='East' />
+            <input type = 'submit' name = 'west-button' value='West' />
+         </div>
+      </form>
+   ";
 
+   echo "<h2>Friend Group</h2>";
    foreach ($db->query($get_trainer_friend_group) as $row) {
 
       echo "<p>Your friend group: <strong>{$row[group_name]}</strong></p>";
