@@ -28,7 +28,6 @@ function executeQuery($queryStatement, $dsn, $username, $password) {
    try {
       $db = new PDO($dsn, $username, $password);
       $db->query($queryStatement);
-      //echo "<p>Ran query: $queryStatement</p>";
    } catch (PDOException $e)
    {
       $error_message = $e->getMessage();
@@ -56,8 +55,6 @@ if (isset($_POST['north-button'])) {
 try
 {
    $db = new PDO($dsn, $username, $password);
-
-   echo "<p>Query: $get_trainer_sql</p>";
       
    foreach ($db->query($get_trainer_sql) as $row) {
 

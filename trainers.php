@@ -29,11 +29,6 @@ try
 {
    $db = new PDO($dsn, $username, $password);
    
-   
-   
-   //$type_clause = trim($pokemon_type_1) === '' ? '' : " AND (Type1 IN('$pokemon_type_1', '$pokemon_type_2') OR Type2 IN('$pokemon_type_1', '$pokemon_type_2'))";
-   //$sql .= " WHERE Name LIKE '%$animal_name%'";
-   //$sql .= $type_clause;
    echo "<p>Retrieved Name: $search_name</p>";
    echo "<p>Query: $sql</p>";
    echo "<table border = '1' width = '100%'>
@@ -52,7 +47,6 @@ try
       echo "<td>{$row[name]}</td>";
       echo "<td>{$row[friendGroup]}</td>";
       echo "</tr>";
-    //echo "<li>{$row[Name]}<li>";
    }
    echo "</tbody>";
    echo "</table>";

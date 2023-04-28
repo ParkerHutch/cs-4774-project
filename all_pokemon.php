@@ -90,13 +90,9 @@ try
 {
    $db = new PDO($dsn, $username, $password);
    
-   
-   
-   //$type_clause = trim($pokemon_type_1) === '' ? '' : " AND (Type1 IN('$pokemon_type_1', '$pokemon_type_2') OR Type2 IN('$pokemon_type_1', '$pokemon_type_2'))";
    $sql .= " WHERE Name LIKE '%$animal_name%'";
    $sql .= $type_clause;
 
-   echo "<p>Query: $sql</p>";
    echo "<table border = '1' width = '100%'>
             <thead>
                <tr>
