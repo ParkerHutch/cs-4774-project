@@ -12,10 +12,6 @@
     <input class="form-control" type="text" id="animal_name" name="animal_name">
   </div>
   <div class="form-group">
-    <label for="animal_type">Type:</label>
-    <input class="form-control" type="text" id="animal_type" name="animal_type">
-  </div>
-  <div class="form-group">
     <label for="pokemon_type_1">Type1:</label>
     <select class="form-control" id="pokemon_type_1" name="pokemon_type_1">
       <option value="" selected disabled hidden>--Select--</option>
@@ -101,12 +97,12 @@ try
    $sql .= $type_clause;
 
    echo "<p>Query: $sql</p>";
-   echo "<table>
+   echo "<table border = '1' width = '100%'>
             <thead>
                <tr>
                   <th>Name</th>
-                  <th>Type1</th>
-                  <th>Type2</th>
+                  <th>Type</th>
+                  <th>Type</th>
                </tr>
                </thead>
                <tbody>";
