@@ -96,9 +96,9 @@
 <html>
 <head>
 	<title>Registration Form</title>
-    <link rel="stylesheet" href="text-style2.css">
-    <link rel="stylesheet" href="pokemon.css">
-    <link rel="stylesheet" href="form.css">
+    <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/text-style2.css">
+    <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/pokemon.css">
+    <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/form.css">
 </head>
 <body>
 	<div class="container my-5">

@@ -2,8 +2,8 @@
 <html>
    <head>
    <link rel="stylesheet" href="text-style2.css">
-  <link rel="stylesheet" href="pokemon.css">
-  <link rel="stylesheet" href="form.css">
+  <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/pokemon.css">
+  <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/form.css">
    </head>
    <h1 style="text-align:center;" >View/Search/Filter Pokemon</h1>
    <form action="all_pokemon.php" method="post">
@@ -82,7 +82,6 @@ $pokemon_type_2 = $_POST['pokemon_type_2'];
 $sql = "SELECT Name, Type1, Type2 FROM pokemon";
 
 $type_clause = '';
-
 if(!empty($pokemon_type_1) and !empty($pokemon_type_2)) {
    echo "<p>Worked</p>";
    $type_clause = " AND (Type1 IN('$pokemon_type_1', '$pokemon_type_2') OR Type2 IN('$pokemon_type_1', '$pokemon_type_2'))";

@@ -7,7 +7,7 @@ session_start();
 <head>
     <title>Your App Title</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css\form.css">  
+    <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/form.css">  
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -22,8 +22,7 @@ session_start();
       <div class="col">
         Poke<b>App</b>
       </div>
-      <div class="col">
-        <img src="img\pokeball.png" alt="Logo" width = 20 height = 20>
+        <img src="https://storage.cloud.google.com/pokeapp-pictures/img/pokeball.png" alt="Logo" width = 20 height = 20>
       </div>
     </div>
   </a>

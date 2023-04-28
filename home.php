@@ -9,18 +9,18 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="css\pokemon.css">
-  <link rel="stylesheet" href="css\home.css">
-  <link rel="stylesheet" href="text-style.css">
+  <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/pokemon.css">
+  <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/home.css">
+  <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/text-style.css">
   <!-- Pokemon Font -->
   <link href="https://fonts.googleapis.com/css?family=Pokemon" rel="stylesheet">
 </head>
 <body>
   <div class="container">
-  <h1>Welcome to Poke<span class="app">App</span><img src="img\pokeball.png" alt="pokeball" width = 30 height =30></h1>
+  <h1>Welcome to Poke<span class="app">App</span><img src="https://storage.cloud.google.com/pokeapp-pictures/img/pokeball.png" alt="pokeball" width = 30 height =30></h1>
     <div class="row">
       <div class="col-md-6">
-        <img src="img\real-pikachu.gif" alt="Pikachu" class="img-fluid">
+        <img src="https://storage.cloud.google.com/pokeapp-pictures/img/real-pikachu.gif" alt="Pikachu" class="img-fluid">
       </div>
       <div class="box">Welcome, trainers, to PokeApp - your ultimate companion in your quest to become the best! 
         <br><br> Here, you can dive into the world of Pokemon and experience the thrill of catching 'em all. With our Collecting Pokemon feature, you can handpick your favorite Pokemon and create a dream team to take on the toughest challenges.
