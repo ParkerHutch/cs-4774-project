@@ -21,19 +21,11 @@ $dsn = "mysql:unix_socket=/cloudsql/cs-4750-project-381321:us-east4:cs-4750-proj
 $pokemon_number = 1;
 
 $uri = $_SERVER['REQUEST_URI'];
-// echo "<p>$uri</p>";
 
-// $query = $_SERVER['QUERY_STRING'];
-// @parse_str($query, $output);
-// echo "<p>$query</p>";
-// echo "<p>$output['number']</p>";
 $url_components = parse_url($uri);
  
-// Use parse_str() function to parse the
-// string passed via URL
 parse_str($url_components['query'], $params);
-     
-// Display result
+    
 $pokemon_number = $params['number'];
 
 $pokemon_number = is_numeric($pokemon_number) ? $pokemon_number : 1;
@@ -44,81 +36,69 @@ try
 {
    $db = new PDO($dsn, $username, $password);
    
-   echo "<p>Query: $sql</p>";
-
-   echo "<table border = '1' width = '100%'>
-            <thead>
-               <tr>
-                  <th>Attribute</th>
-                  <th>Value</th>
-               </tr>
-               </thead>
-               <tbody>";
    foreach ($db->query($sql) as $row) {
-      echo "
-      <tr>
-        <td>Number</td>
-        <td>{$row[number]}</td>
-      </tr>
-      <tr>
-        <td>Name</td>
-        <td>{$row[name]}</td>
-      </tr>
-      <tr>
-        <td>Type1</td>
-        <td>{$row[Type1]}</td>
-      </tr>
-      <tr>
-        <td>Type2</td>
-        <td>{$row[Type2]}</td>
-      </tr>
-      <tr>
-        <td>Total</td>
-        <td>{$row[Total]}</td>
-      </tr>
-      <tr>
-        <td>HP</td>
-        <td>{$row[HP]}</td>
-      </tr>
-      <tr>
-        <td>Attack</td>
-        <td>{$row[Attack]}</td>
-      </tr>
-      <tr>
-        <td>Defense</td>
-        <td>{$row[Defense]}</td>
-      </tr>
-      <tr>
-        <td>SpAtk</td>
-        <td>{$row[SpAtk]}</td>
-      </tr>
-      <tr>
-        <td>SpDef</td>
-        <td>{$row[SpDef]}</td>
-      </tr>
-      <tr>
-        <td>Speed</td>
-        <td>{$row[Speed]}</td>
-      </tr>
-      <tr>
-        <td>Generation</td>
-        <td>{$row[Generation]}</td>
-      </tr>
-      <tr>
-        <td>Legendary</td>
-        <td>{$row[Legendary]}</td>
-      </tr>
-      <tr>
-        <td>Team</td>
-        <td>{$row[Team]}</td>
-      </tr>
-
-
+    echo "<h3>{$row[name]} (#{$row[number]})</h3>";
+    echo "
+    <table border = '1' width = '100%'>
+        <thead>
+            <tr>
+                <th>Attribute</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Type1</td>
+                <td>{$row[Type1]}</td>
+            </tr>
+            <tr>
+                <td>Type2</td>
+                <td>{$row[Type2]}</td>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td>{$row[Total]}</td>
+            </tr>
+            <tr>
+                <td>HP</td>
+                <td>{$row[HP]}</td>
+            </tr>
+            <tr>
+                <td>Attack</td>
+                <td>{$row[Attack]}</td>
+            </tr>
+            <tr>
+                <td>Defense</td>
+                <td>{$row[Defense]}</td>
+            </tr>
+            <tr>
+                <td>SpAtk</td>
+                <td>{$row[SpAtk]}</td>
+            </tr>
+            <tr>
+                <td>SpDef</td>
+                <td>{$row[SpDef]}</td>
+            </tr>
+            <tr>
+                <td>Speed</td>
+                <td>{$row[Speed]}</td>
+            </tr>
+            <tr>
+                <td>Generation</td>
+                <td>{$row[Generation]}</td>
+            </tr>
+            <tr>
+                <td>Legendary</td>
+                <td>{$row[Legendary]}</td>
+            </tr>
+            <tr>
+                <td>Team</td>
+                <td>{$row[Team]}</td>
+            </tr>
+        </tbody>
+    </table>
       ";
-      //echo "</tr>";
    }
-   echo "</tbody>";
-   echo "</table>";
    
 }
 catch (PDOException $e)
