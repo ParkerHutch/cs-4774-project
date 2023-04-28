@@ -75,7 +75,7 @@ $animal_name   = $_POST['animal_name'];
 $pokemon_type_1 = $_POST['pokemon_type_1'];
 $pokemon_type_2 = $_POST['pokemon_type_2'];
 
-$sql = "SELECT Name, Type1, Type2 FROM pokemon";
+$sql = "SELECT number, Name, Type1, Type2 FROM pokemon";
 
 $type_clause = '';
 if(!empty($pokemon_type_1) and !empty($pokemon_type_2)) {
@@ -104,8 +104,9 @@ try
                <tbody>";
       
    foreach ($db->query($sql) as $row) {
+      $detail_page_link = "/pokemon-detail-view.php?number={$row[number]}";
       echo "<tr>";
-      echo "<td>{$row[Name]}</td>";
+      echo "<td><a href=$detail_page_link>{$row[Name]}</a></td>";
       echo "<td>{$row[Type1]}</td>";
       echo "<td>{$row[Type2]}</td>";
       echo "</tr>";
