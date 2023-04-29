@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/form.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-QpSt0Xl20MKA1Au/CpWn8lWgLv5gMlT0E3U035rZ2KLQ24dOR0U7H5Uew+5U6I+x" crossorigin="anonymous">
     </head>
-   <h1 style="text-align:center;" >View/Search/Filter Pokemon</h1>
+   <h1 style="text-align:center;" >Friend Groups</h1>
    <form action="all_pokemon.php" method="post">
     <div class="form-group">
     <label for="animal_name">Name:</label>
@@ -24,19 +24,44 @@ $dbname = 'Pokemon';
 $dsn = "mysql:unix_socket=/cloudsql/cs-4750-project-381321:us-east4:cs-4750-project;dbname=Pokemon";
 
 $animal_name   = $_POST['group_name'];
-$loggedInTrainerID = 2;
+$loggedInTrainerID = 200;
 
 $friend_group_member_of_sql = "SELECT group_name FROM trainerFriendGroup WHERE trainerID = $loggedInTrainerID";
+$get_friend_group_member_counts = "SELECT group_name, COUNT(*) FROM trainerFriendGroup GROUP BY group_name";
 
 $friend_group = -1;
+$num_members = 0;
+$other_query = "SELECT group_name, COUNT(*) as membersCount FROM trainerFriendGroup GROUP BY group_name";
+
+// get friend group
 try
 {
    $db = new PDO($dsn, $username, $password);
-   
-    //echo "<h2>Your friend group</h2>";
    foreach ($db->query($friend_group_member_of_sql) as $row) {
         $friend_group = $row["group_name"];
-      //echo "<p>{$row[group_name]}</p>";
+   }
+}
+catch (PDOException $e)
+{
+   $error_message = $e->getMessage();
+   echo "<p>An error occurred while connecting to the database: $error_message </p>";
+}
+catch (Exception $e)
+{
+   $error_message = $e->getMessage();
+   echo "<p>Error message: $error_message </p>";
+}
+
+// get # of people in friend group
+try
+{
+   $db = new PDO($dsn, $username, $password);
+
+   foreach ($db->query($other_query) as $row2) {
+      $extracted_group = $row2["group_name"];
+      if ($friend_group != -1 and strcmp($extracted_group, $friend_group) == 0) {
+         $num_members = $row2["membersCount"];
+      }
    }
    
 }
@@ -51,8 +76,60 @@ catch (Exception $e)
    echo "<p>Error message: $error_message </p>";
 }
 
+
+$button_text = "";
+
 if ($friend_group != -1) {
-    echo "<h2>Your friend group: $friend_group</h2>";
+   echo "<h2>Your friend group: $friend_group</h2>";
+   echo "<p>$num_members member(s)</p>";
+   
+   if ($num_members == 1) {
+      // later should delete the friend group and set the user's friend group attribute to NULL
+      $button_text = "
+      <form method = 'post'>
+         <input type = 'submit' name = 'delete-group-button' value='Delete Friend Group' />
+      </form>";
+   } else {
+      $button_text = "
+         <form method = 'post'>
+            <input type = 'submit' name = 'leave-group-button' value='Leave Friend Group' />
+         </form>
+      ";
+   }
+
+} else {
+   $button_text = "
+      <form method = 'post'>
+         <input type = 'submit' name = 'create-group-button' value='Create friend group' />
+      </form>
+   ";
+}
+
+echo $button_text;
+
+// Show the available friend groups to join if the user isn't in one
+if ($friend_group == -1) {
+   try
+   {
+      $db = new PDO($dsn, $username, $password);
+
+      foreach ($db->query($other_query) as $row2) {         
+         echo "<p>{$row2[group_name]} {$row2[membersCount]}</p>";
+      }
+      
+   }
+   catch (PDOException $e)
+   {
+      $error_message = $e->getMessage();
+      echo "<p>An error occurred while connecting to the database: $error_message </p>";
+   }
+   catch (Exception $e)
+   {
+      $error_message = $e->getMessage();
+      echo "<p>Error message: $error_message </p>";
+   }
+} else {
+   echo "<p>Friend group isn't -1, $friend_group</p>";
 }
 
 ?>
