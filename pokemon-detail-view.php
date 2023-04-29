@@ -32,12 +32,70 @@ $pokemon_number = is_numeric($pokemon_number) ? $pokemon_number : 1;
 
 $sql = "SELECT number, name, Type1, Type2, Total, HP, Attack, Defense, SpAtk, SpDef, Speed, Generation, Legendary, Team FROM pokemon WHERE number = $pokemon_number";
 
+$pokemon_team = "-1";
+
+$loggedInTrainerId = "63";
+
+function executeQuery($queryStatement, $dsn, $username, $password) {
+    try {
+       $db = new PDO($dsn, $username, $password);
+       $db->query($queryStatement);
+    } catch (PDOException $e)
+    {
+       $error_message = $e->getMessage();
+       echo "<p>An error occurred while connecting to the database: $error_message </p>";
+    }
+    catch (Exception $e)
+    {
+       $error_message = $e->getMessage();
+       echo "<p>Error message: $error_message </p>";
+    }
+ }
+
+if (isset($_POST['add-to-team-button'])) {
+    $add_to_team_sql = "UPDATE pokemon SET Team = $loggedInTrainerId WHERE number = $pokemon_number";
+    executeQuery($add_to_team_sql, $dsn, $username, $password);
+} else if (isset($_POST['remove-from-team-button'])) {
+    $remove_from_team_sql = "UPDATE pokemon SET Team = NULL WHERE number = $pokemon_number";
+    executeQuery($remove_from_team_sql, $dsn, $username, $password);
+}
+
+try {
+    $db = new PDO($dsn, $username, $password);
+    $team_sql = "SELECT Team FROM pokemon WHERE number = $pokemon_number";
+    foreach ($db->query($team_sql) as $row1) {
+        $pokemon_team = $row1["Team"];
+    }
+} catch (PDOException $e) {
+   $error_message = $e->getMessage();
+   echo "<p>An error occurred while connecting to the database: $error_message </p>";
+} catch (Exception $e) {
+   $error_message = $e->getMessage();
+   echo "<p>Error message: $error_message </p>";
+}
+
+$button_text = "<p>This pokemon belongs to team $pokemon_team</p>";
+if ($pokemon_team == -1 or !is_numeric($pokemon_team)) {
+    $button_text = "
+    <form method = 'post'>
+        <input type = 'submit' name = 'add-to-team-button' value='Add to team' />
+    </form>";
+    //$button_text = "<button id='add_to_team_button'>Add to team</button>";
+} else if ($pokemon_team == $loggedInTrainerId) {
+    $button_text = "
+    <form method = 'post'>
+        <input type = 'submit' name = 'remove-from-team-button' value='Remove from team' />
+    </form>";
+    //$button_text = "<button id='remove_from_team_button'>Remove from team</button>";
+}
+
 try
 {
    $db = new PDO($dsn, $username, $password);
    
    foreach ($db->query($sql) as $row) {
     echo "<h3>{$row[name]} (#{$row[number]})</h3>";
+    echo $button_text;
     echo "
     <table border = '1' width = '100%'>
         <thead>
@@ -90,10 +148,6 @@ try
             <tr>
                 <td>Legendary</td>
                 <td>{$row[Legendary]}</td>
-            </tr>
-            <tr>
-                <td>Team</td>
-                <td>{$row[Team]}</td>
             </tr>
         </tbody>
     </table>
