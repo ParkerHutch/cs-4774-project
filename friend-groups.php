@@ -24,7 +24,7 @@ $dbname = 'Pokemon';
 $dsn = "mysql:unix_socket=/cloudsql/cs-4750-project-381321:us-east4:cs-4750-project;dbname=Pokemon";
 
 $animal_name   = $_POST['group_name'];
-$loggedInTrainerID = 200;
+$loggedInTrainerID = 2;
 
 $friend_group_member_of_sql = "SELECT group_name FROM trainerFriendGroup WHERE trainerID = $loggedInTrainerID";
 $get_friend_group_member_counts = "SELECT group_name, COUNT(*) FROM trainerFriendGroup GROUP BY group_name";
@@ -33,6 +33,20 @@ $friend_group = -1;
 $num_members = 0;
 $other_query = "SELECT group_name, COUNT(*) as membersCount FROM trainerFriendGroup GROUP BY group_name";
 
+$join_group_name = $_POST['join_group_name'];
+$leave_group_name = $_POST['leave_group_name'];
+$delete_group_name = $_POST['delete_group_name'];
+$create_group_name = $_POST['create_group_name'];
+
+if (!empty($join_group_name)) {
+   echo "<p>Join group $join_group_name</p>";
+} else if (!empty($leave_group_name)) {
+   echo "<p>Leave group $leave_group_name</p>";
+} else if (!empty($delete_group_name)) {
+   echo "<p>Delete group $delete_group_name</p>";
+} else if (!empty($create_group_name)) {
+   echo "<p>Create group $create_group_name</p>";
+}
 // get friend group
 try
 {
@@ -87,11 +101,13 @@ if ($friend_group != -1) {
       // later should delete the friend group and set the user's friend group attribute to NULL
       $button_text = "
       <form method = 'post'>
+         <input type='hidden' id='delete_group_name' name='delete_group_name' value=$friend_group>
          <input type = 'submit' name = 'delete-group-button' value='Delete Friend Group' />
       </form>";
    } else {
       $button_text = "
          <form method = 'post'>
+            <input type='hidden' id='leave_group_name' name='leave_group_name' value=$friend_group>
             <input type = 'submit' name = 'leave-group-button' value='Leave Friend Group' />
          </form>
       ";
@@ -100,6 +116,8 @@ if ($friend_group != -1) {
 } else {
    $button_text = "
       <form method = 'post'>
+         <label for='create_group_name'>New Group Name:</label>
+         <input class='form-control' type='text' id='create_group_name' name='create_group_name'>
          <input type = 'submit' name = 'create-group-button' value='Create friend group' />
       </form>
    ";
@@ -131,6 +149,7 @@ if ($friend_group == -1) {
          echo "<td>
             <form method = 'post'>
                <input type = 'submit' name = 'join-group-button' value='Join Friend Group' />
+               <input type='hidden' id='join_group_name' name='join_group_name' value={$row2[group_name]}>
             </form>
          </td>
          ";
@@ -151,8 +170,6 @@ if ($friend_group == -1) {
       $error_message = $e->getMessage();
       echo "<p>Error message: $error_message </p>";
    }
-} else {
-   echo "<p>Friend group isn't -1, $friend_group</p>";
 }
 
 ?>
