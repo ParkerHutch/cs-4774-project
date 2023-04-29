@@ -109,13 +109,36 @@ echo $button_text;
 
 // Show the available friend groups to join if the user isn't in one
 if ($friend_group == -1) {
+   echo "<h2>Join a friend group</h2>";
+
    try
    {
       $db = new PDO($dsn, $username, $password);
 
-      foreach ($db->query($other_query) as $row2) {         
-         echo "<p>{$row2[group_name]} {$row2[membersCount]}</p>";
+      echo "<table border = '1' width = '100%'>
+            <thead>
+               <tr>
+                  <th>Friend Group Name</th>
+                  <th># of Members</th>
+                  <th>Action</th>
+               </tr>
+               </thead>
+               <tbody>";
+      foreach ($db->query($other_query) as $row2) {  
+         echo "<tr>";       
+         echo "<td>{$row2[group_name]}</td>";
+         echo "<td>{$row2[membersCount]}</td>";
+         echo "<td>
+            <form method = 'post'>
+               <input type = 'submit' name = 'join-group-button' value='Join Friend Group' />
+            </form>
+         </td>
+         ";
+         echo "</tr>";
       }
+
+      echo "</tbody>";
+      echo "</table>";
       
    }
    catch (PDOException $e)
