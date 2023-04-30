@@ -6,6 +6,7 @@
       <a href="trainers.php">Trainers</a>
       <a href="trainer_profile.php">Trainer Profile</a>
       <a href="friend-groups.php">Friend Groups</a>
+      <a href="message-board.php">Message Board</a>
    </body>
 </html>
 <?php
@@ -30,6 +31,9 @@ switch (@parse_url($_SERVER['REQUEST_URI'])['path']) {
       break;
    case '/pokemon-detail-view.php':
       require 'pokemon-detail-view.php';
+      break;
+   case '/message-board.php':
+      require 'message-board.php';
       break;
    case '/login.php':
       require 'login.php';
