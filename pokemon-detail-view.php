@@ -34,7 +34,11 @@ $sql = "SELECT number, name, Type1, Type2, Total, HP, Attack, Defense, SpAtk, Sp
 
 $pokemon_team = "-1";
 
-$loggedInTrainerId = "63";
+$loggedInTrainerID = $_SESSION["id"]; // try to get the trainer ID from the session
+
+$loggedInTrainerID = empty($loggedInTrainerID) ? 63 : $loggedInTrainerID;
+
+echo "<p>Currently logged in trainer ID: $loggedInTrainerID</p>";
 
 function executeQuery($queryStatement, $dsn, $username, $password) {
     try {
