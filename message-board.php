@@ -50,11 +50,11 @@ function executeQuery($queryStatement, $dsn, $username, $password) {
 if (!empty($delete_message_id)) {
     $delete_sql = "DELETE FROM messages WHERE messageID = $delete_message_id";
     echo "<p>Should delete here, query $delete_sql</p>";
-    //executeQuery($delete_sql, $dsn, $username, $password);
+    executeQuery($delete_sql, $dsn, $username, $password);
 } else if (!empty($create_message_text)) {
-    $create_sql = "INSERT INTO messages (trainerID, messagesText) VALUES ($loggedInTrainerID, $create_message_text)";
+    $create_sql = "INSERT INTO messages (trainerID, messageText) VALUES ($loggedInTrainerID, '$create_message_text')";
     echo "<p>Should create here, query $create_sql</p>";
-    //executeQuery($create_sql, $dsn, $username, $password);
+    executeQuery($create_sql, $dsn, $username, $password);
 }
 
 // get messages
