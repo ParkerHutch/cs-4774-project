@@ -7,13 +7,6 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-QpSt0Xl20MKA1Au/CpWn8lWgLv5gMlT0E3U035rZ2KLQ24dOR0U7H5Uew+5U6I+x" crossorigin="anonymous">
     </head>
    <h1 style="text-align:center;" >Friend Groups</h1>
-   <form action="all_pokemon.php" method="post">
-    <div class="form-group">
-    <label for="animal_name">Name:</label>
-    <input class="form-control" type="text" id="group_name" name="group_name">
-    </div>
-     <input type="submit" />
-</form>
 </html>
 <?php
 
@@ -23,7 +16,6 @@ $host = 'cs-4750-project-381321:us-east4:cs-4750-project';
 $dbname = 'Pokemon';
 $dsn = "mysql:unix_socket=/cloudsql/cs-4750-project-381321:us-east4:cs-4750-project;dbname=Pokemon";
 
-$animal_name   = $_POST['group_name'];
 $loggedInTrainerID = 2;
 
 $friend_group_member_of_sql = "SELECT group_name FROM trainerFriendGroup WHERE trainerID = $loggedInTrainerID";
@@ -38,14 +30,38 @@ $leave_group_name = $_POST['leave_group_name'];
 $delete_group_name = $_POST['delete_group_name'];
 $create_group_name = $_POST['create_group_name'];
 
+
+function executeQuery($queryStatement, $dsn, $username, $password) {
+   try {
+      $db = new PDO($dsn, $username, $password);
+      $db->query($queryStatement);
+   } catch (PDOException $e)
+   {
+      $error_message = $e->getMessage();
+      echo "<p>An error occurred while connecting to the database: $error_message </p>";
+   }
+   catch (Exception $e)
+   {
+      $error_message = $e->getMessage();
+      echo "<p>Error message: $error_message </p>";
+   }
+}
+
 if (!empty($join_group_name)) {
-   echo "<p>Join group $join_group_name</p>";
-} else if (!empty($leave_group_name)) {
-   echo "<p>Leave group $leave_group_name</p>";
-} else if (!empty($delete_group_name)) {
-   echo "<p>Delete group $delete_group_name</p>";
-} else if (!empty($create_group_name)) {
-   echo "<p>Create group $create_group_name</p>";
+   $join_sql = "UPDATE trainerFriendGroup SET group_name = '$join_group_name' WHERE trainerID = $loggedInTrainerID";
+   executeQuery($join_sql, $dsn, $username, $password);
+} else if (!empty($leave_group_name) or !empty($delete_group_name)) {
+   $join_sql = "UPDATE trainerFriendGroup SET group_name = 'NONE' WHERE trainerID = $loggedInTrainerID";
+   executeQuery($join_sql, $dsn, $username, $password);
+} 
+// else if (!empty($delete_group_name)) {
+//    echo "<p>Delete group $delete_group_name</p>";
+//    $join_sql = "UPDATE trainerFriendGroup SET group_name = 'NONE' WHERE trainerID = $loggedInTrainerID";
+//    executeQuery($join_sql, $dsn, $username, $password);
+// } 
+else if (!empty($create_group_name)) {
+   $join_sql = "UPDATE trainerFriendGroup SET group_name = '$create_group_name' WHERE trainerID = $loggedInTrainerID";
+   executeQuery($join_sql, $dsn, $username, $password);
 }
 // get friend group
 try
@@ -53,6 +69,9 @@ try
    $db = new PDO($dsn, $username, $password);
    foreach ($db->query($friend_group_member_of_sql) as $row) {
         $friend_group = $row["group_name"];
+        if (strcmp($friend_group, "NONE") == 0) {
+         $friend_group = -1;
+        }
    }
 }
 catch (PDOException $e)
@@ -95,23 +114,28 @@ $button_text = "";
 
 if ($friend_group != -1) {
    echo "<h2>Your friend group: $friend_group</h2>";
-   echo "<p>$num_members member(s)</p>";
-   
-   if ($num_members == 1) {
-      // later should delete the friend group and set the user's friend group attribute to NULL
-      $button_text = "
-      <form method = 'post'>
-         <input type='hidden' id='delete_group_name' name='delete_group_name' value=$friend_group>
-         <input type = 'submit' name = 'delete-group-button' value='Delete Friend Group' />
-      </form>";
-   } else {
-      $button_text = "
+   //echo "<p>$num_members member(s)</p>";
+   $button_text = "
          <form method = 'post'>
             <input type='hidden' id='leave_group_name' name='leave_group_name' value=$friend_group>
             <input type = 'submit' name = 'leave-group-button' value='Leave Friend Group' />
          </form>
       ";
-   }
+   // if ($num_members == 1) {
+   //    // later should delete the friend group and set the user's friend group attribute to NULL
+   //    $button_text = "
+   //    <form method = 'post'>
+   //       <input type='hidden' id='delete_group_name' name='delete_group_name' value=$friend_group>
+   //       <input type = 'submit' name = 'delete-group-button' value='Delete Friend Group' />
+   //    </form>";
+   // } else {
+   //    $button_text = "
+   //       <form method = 'post'>
+   //          <input type='hidden' id='leave_group_name' name='leave_group_name' value=$friend_group>
+   //          <input type = 'submit' name = 'leave-group-button' value='Leave Friend Group' />
+   //       </form>
+   //    ";
+   // }
 
 } else {
    $button_text = "
@@ -143,17 +167,19 @@ if ($friend_group == -1) {
                </thead>
                <tbody>";
       foreach ($db->query($other_query) as $row2) {  
-         echo "<tr>";       
-         echo "<td>{$row2[group_name]}</td>";
-         echo "<td>{$row2[membersCount]}</td>";
-         echo "<td>
-            <form method = 'post'>
-               <input type = 'submit' name = 'join-group-button' value='Join Friend Group' />
-               <input type='hidden' id='join_group_name' name='join_group_name' value={$row2[group_name]}>
-            </form>
-         </td>
-         ";
-         echo "</tr>";
+         if (strcmp($row2["group_name"], "NONE") != 0) {
+            echo "<tr>";       
+            echo "<td>{$row2[group_name]}</td>";
+            echo "<td>{$row2[membersCount]}</td>";
+            echo "<td>
+               <form method = 'post'>
+                  <input type = 'submit' name = 'join-group-button' value='Join Friend Group' />
+                  <input type='hidden' id='join_group_name' name='join_group_name' value={$row2[group_name]}>
+               </form>
+            </td>
+            ";
+            echo "</tr>";
+         }
       }
 
       echo "</tbody>";
