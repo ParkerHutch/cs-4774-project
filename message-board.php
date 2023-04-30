@@ -27,13 +27,6 @@ $loggedInTrainerID = empty($loggedInTrainerID) ? 63 : $loggedInTrainerID;
 
 echo "<p>Currently logged in trainer ID: $loggedInTrainerID</p>";
 
-$friend_group_member_of_sql = "SELECT group_name FROM trainerFriendGroup WHERE trainerID = $loggedInTrainerID";
-$get_friend_group_member_counts = "SELECT group_name, COUNT(*) FROM trainerFriendGroup GROUP BY group_name";
-
-$friend_group = -1;
-$num_members = 0;
-$other_query = "SELECT group_name, COUNT(*) as membersCount FROM trainerFriendGroup GROUP BY group_name";
-
 $delete_message_id = $_POST['delete-message-id'];
 $create_message_text = $_POST['create-message-text'];
 
@@ -63,23 +56,6 @@ if (!empty($delete_message_id)) {
     echo "<p>Should create here, query $create_sql</p>";
     //executeQuery($create_sql, $dsn, $username, $password);
 }
-// if (!empty($join_group_name)) {
-//    $join_sql = "UPDATE trainerFriendGroup SET group_name = '$join_group_name' WHERE trainerID = $loggedInTrainerID";
-//    executeQuery($join_sql, $dsn, $username, $password);
-// } else if (!empty($leave_group_name) or !empty($delete_group_name)) {
-//    $join_sql = "UPDATE trainerFriendGroup SET group_name = 'NONE' WHERE trainerID = $loggedInTrainerID";
-//    executeQuery($join_sql, $dsn, $username, $password);
-// } 
-// // else if (!empty($delete_group_name)) {
-// //    echo "<p>Delete group $delete_group_name</p>";
-// //    $join_sql = "UPDATE trainerFriendGroup SET group_name = 'NONE' WHERE trainerID = $loggedInTrainerID";
-// //    executeQuery($join_sql, $dsn, $username, $password);
-// // } 
-// else if (!empty($create_group_name)) {
-//    $join_sql = "UPDATE trainerFriendGroup SET group_name = '$create_group_name' WHERE trainerID = $loggedInTrainerID";
-//    executeQuery($join_sql, $dsn, $username, $password);
-// }
-
 
 // get messages
 $get_messages_sql = "SELECT messageID, trainerID, messageText FROM messages";
@@ -98,14 +74,12 @@ try
                </thead>
                <tbody>";
     foreach ($db->query($get_messages_sql) as $row) {
-        //$friend_group = $row["group_name"];
         $message_trainerID = $row["trainerID"];
         echo "<tr>";
         echo "<td>$message_trainerID</td>";
         echo "<td>{$row[messageText]}</td>";
 
         $submit_or_hidden_tag = $message_trainerID == $loggedInTrainerID ? "'submit'" : "'hidden'";
-        //echo "<p>$submit_or_hidden_tag</p>";
         echo "<td>
                <form method = 'post'>
                   <input type = $submit_or_hidden_tag name = 'delete-message-button' value='Delete' />
