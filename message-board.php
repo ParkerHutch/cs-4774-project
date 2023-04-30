@@ -57,9 +57,11 @@ function executeQuery($queryStatement, $dsn, $username, $password) {
 if (!empty($delete_message_id)) {
     $delete_sql = "DELETE FROM messages WHERE messageID = $delete_message_id";
     echo "<p>Should delete here, query $delete_sql</p>";
+    //executeQuery($delete_sql, $dsn, $username, $password);
 } else if (!empty($create_message_text)) {
     $create_sql = "INSERT INTO messages (trainerID, messagesText) VALUES ($loggedInTrainerID, $create_message_text)";
     echo "<p>Should create here, query $create_sql</p>";
+    //executeQuery($create_sql, $dsn, $username, $password);
 }
 // if (!empty($join_group_name)) {
 //    $join_sql = "UPDATE trainerFriendGroup SET group_name = '$join_group_name' WHERE trainerID = $loggedInTrainerID";
@@ -101,9 +103,12 @@ try
         echo "<tr>";
         echo "<td>$message_trainerID</td>";
         echo "<td>{$row[messageText]}</td>";
+
+        $submit_or_hidden_tag = $message_trainerID == $loggedInTrainerID ? "'submit'" : "'hidden'";
+        //echo "<p>$submit_or_hidden_tag</p>";
         echo "<td>
                <form method = 'post'>
-                  <input type = 'submit' name = 'delete-message-button' value='Delete' />
+                  <input type = $submit_or_hidden_tag name = 'delete-message-button' value='Delete' />
                   <input type='hidden' id='delete-message-id' name='delete-message-id' value={$row[messageID]}>
                </form>
             </td>
