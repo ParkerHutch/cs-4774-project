@@ -5,6 +5,7 @@
       <a href="query.php">query.php</a>
       <a href="trainers.php">Trainers</a>
       <a href="trainer_profile.php">Trainer Profile</a>
+      <a href="friend-groups.php">Friend Groups</a>
    </body>
 </html>
 <?php

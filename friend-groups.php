@@ -16,7 +16,11 @@ $host = 'cs-4750-project-381321:us-east4:cs-4750-project';
 $dbname = 'Pokemon';
 $dsn = "mysql:unix_socket=/cloudsql/cs-4750-project-381321:us-east4:cs-4750-project;dbname=Pokemon";
 
-$loggedInTrainerID = 2;
+$loggedInTrainerID = $_SESSION["id"]; // try to get the trainer ID from the session
+
+$loggedInTrainerID = empty($loggedInTrainerID) ? 63 : $loggedInTrainerID;
+
+echo "<p>Currently logged in trainer ID: $loggedInTrainerID</p>";
 
 $friend_group_member_of_sql = "SELECT group_name FROM trainerFriendGroup WHERE trainerID = $loggedInTrainerID";
 $get_friend_group_member_counts = "SELECT group_name, COUNT(*) FROM trainerFriendGroup GROUP BY group_name";
@@ -138,6 +142,7 @@ if ($friend_group != -1) {
    // }
 
 } else {
+   echo "<p><strong>You are not currently in a friend group. Create or join one below.</strong></p>";
    $button_text = "
       <form method = 'post'>
          <label for='create_group_name'>New Group Name:</label>
