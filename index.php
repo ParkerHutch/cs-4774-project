@@ -1,5 +1,6 @@
 <html>
    <body>
+      <a href="home.php">Home Page</a>
       <a href="all_pokemon.php">See all pokemon</a>
       <a href="queries.php">queries.php</a>
       <a href="query.php">query.php</a>

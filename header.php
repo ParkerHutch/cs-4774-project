@@ -5,9 +5,9 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Your App Title</title>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/form.css">  
+    <link rel="stylesheet" href="css\form.css">  
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -22,7 +22,8 @@ session_start();
       <div class="col">
         Poke<b>App</b>
       </div>
-        <img src="https://storage.cloud.google.com/pokeapp-pictures/img/pokeball.png" alt="Logo" width = 20 height = 20>
+      <div class="col">
+        <img src="img\pokeball.png" alt="Logo" width = 20 height = 20>
       </div>
     </div>
   </a>
@@ -32,8 +33,9 @@ session_start();
       <?php if (isset($_SESSION['user_id'])): ?>
       <li><a href="trainer_profile.php">Trainer Profile</a></li>	
 			<li><a href="all_pokemon.php">Pokemon Search</a></li>
-      <li><a href="gym_view.php">View Gyms</a></li>
-      <li><a href="friend_groups.php">Friend Groups</a></li>		
+      <li><a href="gym-view.php">View Gyms</a></li>
+      <li><a href="friend-groups.php">Friend Groups</a></li>		
+      <li><a href="message-board.php">Message Board</a></li>	
       <?php endif; ?>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">

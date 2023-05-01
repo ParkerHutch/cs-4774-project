@@ -1,7 +1,13 @@
 <?php
 // Start session
-session_start();
-
+if(session_status() !== PHP_SESSION_ACTIVE) session_start();
+/*
+if (session_status() == PHP_SESSION_ACTIVE) {
+    echo "Session has started";
+} else {
+    echo "Session has not started";
+}
+*/
 // Check if user is already logged in, redirect to home page if true
 if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] === true) {
     header("location: home.php");
@@ -37,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Prepare a select statement
         $sql = "SELECT id, username, password FROM users WHERE username = :username";
 
-        if ($stmt = $pdo->prepare($sql)) {
+        if ($stmt = $db->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
             $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
 
@@ -82,6 +88,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Close connection
-    unset($pdo);
+    unset($db);
 }
 ?>

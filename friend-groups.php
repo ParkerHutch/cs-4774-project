@@ -1,20 +1,22 @@
 <?php include('header.php'); ?>
 <html>
     <head>
-        <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/text-style2.css">
-        <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/pokemon.css">
-        <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/form.css">
+    <title>Friend Groups</title>
+        <link rel="stylesheet" href="text-style2.css">
+        <link rel="stylesheet" href="css/pokemon.css">
+        <link rel="stylesheet" href="css/form.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-QpSt0Xl20MKA1Au/CpWn8lWgLv5gMlT0E3U035rZ2KLQ24dOR0U7H5Uew+5U6I+x" crossorigin="anonymous">
     </head>
    <h1 style="text-align:center;" >Friend Groups</h1>
 </html>
 <?php
-
+// Turn off all error reporting
+error_reporting(0);
 $username = 'root';
-$password = 'Tonyle1!';
-$host = 'cs-4750-project-381321:us-east4:cs-4750-project';
-$dbname = 'Pokemon';
-$dsn = "mysql:unix_socket=/cloudsql/cs-4750-project-381321:us-east4:cs-4750-project;dbname=Pokemon";
+$password = '';
+$host = 'localhost';           // default phpMyAdmin port = 3306
+$dbname = 'pokemon';
+$dsn = "mysql:host=$host;dbname=$dbname";
 
 $loggedInTrainerID = $_SESSION["id"]; // try to get the trainer ID from the session
 
@@ -145,7 +147,7 @@ if ($friend_group != -1) {
    echo "<p><strong>You are not currently in a friend group. Create or join one below.</strong></p>";
    $button_text = "
       <form method = 'post'>
-         <label for='create_group_name'>New Group Name:</label>
+         <h2 style='text-align:center;' >New Group Name:</h2>
          <input class='form-control' type='text' id='create_group_name' name='create_group_name'>
          <input type = 'submit' name = 'create-group-button' value='Create friend group' />
       </form>
@@ -165,21 +167,21 @@ if ($friend_group == -1) {
       echo "<table border = '1' width = '100%'>
             <thead>
                <tr>
-                  <th>Friend Group Name</th>
-                  <th># of Members</th>
-                  <th>Action</th>
+                  <th><p>Friend Group Name</p></th>
+                  <th><p># of Members</p></th>
+                  <th><p>Action</p></th>
                </tr>
                </thead>
                <tbody>";
       foreach ($db->query($other_query) as $row2) {  
          if (strcmp($row2["group_name"], "NONE") != 0) {
             echo "<tr>";       
-            echo "<td>{$row2[group_name]}</td>";
-            echo "<td>{$row2[membersCount]}</td>";
+            echo "<td><p>{$row2['group_name']}</p></td>";
+            echo "<td><p>{$row2['membersCount']}</p></td>";
             echo "<td>
                <form method = 'post'>
                   <input type = 'submit' name = 'join-group-button' value='Join Friend Group' />
-                  <input type='hidden' id='join_group_name' name='join_group_name' value={$row2[group_name]}>
+                  <input type='hidden' id='join_group_name' name='join_group_name' value={$row2['group_name']}>
                </form>
             </td>
             ";
@@ -204,4 +206,3 @@ if ($friend_group == -1) {
 }
 
 ?>
-

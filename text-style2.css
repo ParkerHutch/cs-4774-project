@@ -1,0 +1,57 @@
+/* Import a pixel font */
+@font-face {
+    font-family: 'Pixel Font';
+    src: url('slkscr.ttf');
+  }
+  
+  /* Use the pixel font for headings */
+  h1 {
+    font-family: 'Pixel Font', sans-serif;
+    font-size: 35px;
+    color:white;
+    text-shadow: -1.5px 1.5px 0 #000,
+                  1.5px 1.5px 0 #000,
+                  1.5px -1.5px 0 #000,
+                    -1.5px -1.5px 0 #000;
+  }
+  
+  /* Use the pixel font for headings */
+  h2 {
+    font-family: 'Pixel Font', sans-serif;
+    font-size: 35px;
+    color:rgb(6, 6, 6);
+    
+    text-shadow: none;
+  }
+  
+  /* Use the pixel font for body text */
+  p {
+    color:rgb(0, 0, 0);
+    font-family: 'Pixel Font', sans-serif;
+    font-size: 16px;
+  }
+  .logo {
+    width: 25x;
+    height: 25px;
+    padding-left: 0;
+  }
+
+  body {
+    background: #ecf0f1;
+    }
+
+  /* @font-face kit by Fonts2u (http://www.fonts2u.com) */
+@font-face {
+  font-family: "Pokemon GB";
+  src: url("https://dl.dropboxusercontent.com/u/10822923/Pokemon_GB/Pokemon_GB.eot?") format("eot"),
+       url("https://dl.dropboxusercontent.com/u/10822923/Pokemon_GB/Pokemon_GB.woff") format("woff"),
+       url("https://dl.dropboxusercontent.com/u/10822923/Pokemon_GB/Pokemon_GB.ttf") format("truetype"),
+       url("https://dl.dropboxusercontent.com/u/10822923/Pokemon_GB/Pokemon_GB.svg#PokemonGB") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@keyframes bounce {
+  from { margin-top: 20px; }
+  to { margin-top: 23px; }
+}

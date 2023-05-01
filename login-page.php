@@ -3,14 +3,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<title>Log In</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Login Form</title>
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/text-style2.css">
-  <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/pokemon.css">
-  <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/form.css">
+  <link rel="stylesheet" href="text-style2.css">
+  <link rel="stylesheet" href="css/pokemon.css">
+  <link rel="stylesheet" href="form.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-QpSt0Xl20MKA1Au/CpWn8lWgLv5gMlT0E3U035rZ2KLQ24dOR0U7H5Uew+5U6I+x" crossorigin="anonymous">
 </head>
 <body>

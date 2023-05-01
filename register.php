@@ -1,5 +1,13 @@
 <?php include('header.php'); ?>
 <?php
+if(session_status() !== PHP_SESSION_ACTIVE) session_start();
+/*
+if (session_status() == PHP_SESSION_ACTIVE) {
+  echo "Session has started";
+} else {
+  echo "Session has not started";
+}
+*/
   require_once('connect-db.php');
 
   $username = $email = $password = '';
@@ -12,7 +20,7 @@
     } else {
       $sql = 'SELECT id FROM users WHERE username = ?';
 
-      if($stmt = $pdo->prepare($sql)) {
+      if($stmt = $db->prepare($sql)) {
         $stmt->bindParam(1, $param_username, PDO::PARAM_STR);
 
         $param_username = trim($_POST['username']);
@@ -37,7 +45,7 @@
     } else {
       $sql = 'SELECT id FROM users WHERE email = ?';
 
-      if($stmt = $pdo->prepare($sql)) {
+      if($stmt = $db->prepare($sql)) {
         $stmt->bindParam(1, $param_email, PDO::PARAM_STR);
 
         $param_email = trim($_POST['email']);
@@ -69,7 +77,7 @@
     if(empty($username_err) && empty($email_err) && empty($password_err)) {
       $sql = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
 
-      if($stmt = $pdo->prepare($sql)) {
+      if($stmt = $db->prepare($sql)) {
         $stmt->bindParam(1, $param_username, PDO::PARAM_STR);
         $stmt->bindParam(2, $param_email, PDO::PARAM_STR);
         $stmt->bindParam(3, $param_password, PDO::PARAM_STR);
@@ -88,17 +96,17 @@
       }
     }
 
-    unset($pdo);
+    unset($db);
   }
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Registration Form</title>
-    <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/text-style2.css">
-    <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/pokemon.css">
-    <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/form.css">
+	<title>Registration</title>
+    <link rel="stylesheet" href="text-style2.css">
+    <link rel="stylesheet" href="css/pokemon.css">
+    <link rel="stylesheet" href="css/form.css">
 </head>
 <body>
 	<div class="container my-5">
