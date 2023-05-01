@@ -1,9 +1,11 @@
 <?php include('header.php'); ?>
 <html>
     <head>
+
         <link rel="stylesheet" href="text-style2.css">
         <link rel="stylesheet" href="css/pokemon.css">
         <link rel="stylesheet" href="css/form.css">
+
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-QpSt0Xl20MKA1Au/CpWn8lWgLv5gMlT0E3U035rZ2KLQ24dOR0U7H5Uew+5U6I+x" crossorigin="anonymous">
     </head>
    
@@ -17,6 +19,8 @@ $password = '';
 $host = 'localhost';           // default phpMyAdmin port = 3306
 $dbname = 'pokemon';
 $dsn = "mysql:host=$host;dbname=$dbname";
+
+
 
 $pokemon_number = 1;
 
@@ -57,7 +61,9 @@ function executeQuery($queryStatement, $dsn, $username, $password) {
  }
 
 if (isset($_POST['add-to-team-button'])) {
+
     $add_to_team_sql = "UPDATE pokemon SET Team = $loggedInTrainerID WHERE number = $pokemon_number";
+
     executeQuery($add_to_team_sql, $dsn, $username, $password);
 } else if (isset($_POST['remove-from-team-button'])) {
     $remove_from_team_sql = "UPDATE pokemon SET Team = NULL WHERE number = $pokemon_number";
@@ -98,7 +104,9 @@ try
    $db = new PDO($dsn, $username, $password);
    
    foreach ($db->query($sql) as $row) {
+
     echo "<h2 ><strong>{$row['name']} (#{$row['number']})<strong></h2>";
+
     echo $button_text;
     echo "
     <table border = '1' width = '100%'>
@@ -111,6 +119,7 @@ try
         <tbody>
             <tr>
                 <td>Type1</td>
+
                 <td>{$row['Type1']}</td>
             </tr>
             <tr>
@@ -152,6 +161,7 @@ try
             <tr>
                 <td>Legendary</td>
                 <td>{$row['Legendary']}</td>
+
             </tr>
         </tbody>
     </table>

@@ -26,7 +26,6 @@ $password = '';
 $host = 'localhost';           // default phpMyAdmin port = 3306
 $dbname = 'pokemon';
 $dsn = "mysql:host=$host;dbname=$dbname";
-
 $loggedInTrainerID = $_SESSION["id"]; // try to get the trainer ID from the session
 
 $loggedInTrainerID = empty($loggedInTrainerID) ? 63 : $loggedInTrainerID;
@@ -54,11 +53,13 @@ function executeQuery($queryStatement, $dsn, $username, $password) {
 
 if (!empty($delete_message_id)) {
     $delete_sql = "DELETE FROM messages WHERE messageID = $delete_message_id";
+
     //echo "<p>Should delete here, query $delete_sql</p>";
     executeQuery($delete_sql, $dsn, $username, $password);
 } else if (!empty($create_message_text)) {
     $create_sql = "INSERT INTO messages (trainerID, messageText) VALUES ($loggedInTrainerID, '$create_message_text')";
     //echo "<p>Should create here, query $create_sql</p>";
+
     executeQuery($create_sql, $dsn, $username, $password);
 }
 
@@ -72,23 +73,29 @@ try
    echo "<table border = '1' width = '100%'>
             <thead>
                <tr>
+
                   <th><p>Trainer ID</p></th>
                   <th><p>Message</p></th>
                   <th><p>Action</p></th>
+
                </tr>
                </thead>
                <tbody>";
     foreach ($db->query($get_messages_sql) as $row) {
         $message_trainerID = $row["trainerID"];
         echo "<tr>";
+
         echo "<td><p>$message_trainerID</p></td>";
         echo "<td><p>" . htmlspecialchars($row['messageText'], ENT_QUOTES) . "</p></td>";
+
 
         $submit_or_hidden_tag = $message_trainerID == $loggedInTrainerID ? "'submit'" : "'hidden'";
         echo "<td>
                <form method = 'post'>
                   <input type = $submit_or_hidden_tag name = 'delete-message-button' value='Delete' />
+
                   <input type='hidden' id='delete-message-id' name='delete-message-id' value={$row['messageID']}>
+
                </form>
             </td>
         ";
@@ -97,6 +104,7 @@ try
 
       echo "</tbody>";
       echo "</table>";
+
 
    
 }
@@ -110,4 +118,3 @@ catch (Exception $e)
    $error_message = $e->getMessage();
    echo "<p>Error message: $error_message </p>";
 }
-

@@ -19,6 +19,7 @@ $dbname = 'pokemon';
 $dsn = "mysql:host=$host;dbname=$dbname";
 
 $loggedInTrainerId = $_SESSION["id"]; // TODO replace '2' with the logged-in trainer's ID in the future
+
 $get_trainer_sql = "SELECT trainerID, name, friendGroup FROM trainer WHERE trainerID = $loggedInTrainerId"; 
 $get_trainer_region_sql = "SELECT name FROM region WHERE regionID = (SELECT regionID FROM is_from WHERE trainerID = $loggedInTrainerId)";
 $get_trainer_pokemon_sql = "SELECT name, Type1, Type2 FROM pokemon WHERE pokemon.team = (SELECT number FROM leads WHERE trainerID = $loggedInTrainerId)";
@@ -121,4 +122,3 @@ catch (Exception $e)
    echo "<p>Error message: $error_message </p>";
 }
 
-?>
