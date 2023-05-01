@@ -60,7 +60,7 @@
         </a>
       </div>
       <div class="col-sm-3">
-        <a href="gym_view.php">
+        <a href="gym-view.php">
         <h3 style="padding-left: 75px;">View<br>Gyms</h3>
           <div class="pokeball">
           <div class="pokeball__button" href="gym_view.php"></div>
