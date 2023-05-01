@@ -3,9 +3,27 @@ h1 {
   font-family: 'Pixel Font', sans-serif !important;
   text-align: center !important;
   display: inline-block;
-  margin-top: 50px;
+  margin-top: 10px;
   font-size: 36px;
 }
+/* Use the pixel font for headings */
+h2 {
+font-family: 'Pixel Font', sans-serif;
+font-size: 35px;
+color:rgb(0, 0, 0);
+text-shadow: none;
+}
+
+h3 {
+	font-weight: bold;
+	font-family: 'Pixel Font', sans-serif !important;
+	text-align: center !important;
+	display: inline-block;
+	margin-top: 15px;
+	font-size: 36px;
+	color: white;
+	font-size: 35px;
+  }
 .card-header {
 	font-family: 'Pixel Font', sans-serif !important;
 }
@@ -27,7 +45,19 @@ form {
     text-align: left;
     font-family: 'Pixel Font', sans-serif;
   } 
+  .region-form {
+	text-align: left;
+  }
   
+  .region-form div {
+	margin-left: 0;
+  }
+  
+  .region-form input[type="submit"] {
+	margin-left: 0;
+  }
+  
+
   label {
     text-align: center;
     width: 100px; /* optional: set a fixed width to the label to create consistent spacing */

@@ -8,10 +8,10 @@
 <?php
 
 $username = 'root';
-$password = 'Tonyle1!';
-$host = 'cs-4750-project-381321:us-east4:cs-4750-project';
-$dbname = 'Pokemon';
-$dsn = "mysql:unix_socket=/cloudsql/cs-4750-project-381321:us-east4:cs-4750-project;dbname=Pokemon";
+$password = '';
+$host = 'localhost';           // default phpMyAdmin port = 3306
+$dbname = 'pokemon';
+$dsn = "mysql:host=$host;dbname=$dbname";
 
 $search_name = $_POST['trainer_name'];
 
@@ -41,9 +41,9 @@ try
       
    foreach ($db->query($sql) as $row) {
       echo "<tr>";
-      echo "<td>{$row[trainerID]}</td>";
-      echo "<td>{$row[name]}</td>";
-      echo "<td>{$row[friendGroup]}</td>";
+      echo "<td>{$row['trainerID']}</td>";
+      echo "<td>{$row['name']}</td>";
+      echo "<td>{$row['friendGroup']}</td>";
       echo "</tr>";
     //echo "<li>{$row[Name]}<li>";
    }

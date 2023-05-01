@@ -15,6 +15,15 @@
                     -1.5px -1.5px 0 #000;
   }
   
+  /* Use the pixel font for headings */
+  h2 {
+    font-family: 'Pixel Font', sans-serif;
+    font-size: 35px;
+    color:rgb(6, 6, 6);
+    
+    text-shadow: none;
+  }
+  
   /* Use the pixel font for body text */
   p {
     color:rgb(0, 0, 0);

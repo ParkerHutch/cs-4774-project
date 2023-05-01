@@ -3,11 +3,11 @@
 ////////////////////////////////////////////
 
 /** S23, PHP (on Google Standard App Engine) connect to MySQL instance (GCP) **/
-//$username = 'root';                       // or your username
-//$password = 'Tonyle1!';     
-//$host = 'cs-4750-project-381321:us-east4:cs-4750-project';       // e.g., 'cs4750:us-east4:db-demo'; 
-//$dbname = 'Pokemon';           // e.g., 'guestbook';
-//$dsn = "mysql:unix_socket=/cloudsql/cs-4750-project-381321:us-east4:cs-4750-project;dbname=Pokemon";
+$username = 'root';
+$password = '';
+$host = 'localhost';           // default phpMyAdmin port = 3306
+$dbname = 'pokemon';
+$dsn = "mysql:host=$host;dbname=$dbname";
 //e.g., "mysql:unix_socket=/cloudsql/cs4750:us-east4:db-demo;dbname=guestbook";
 //--------- to test, include app.yaml with the following code
 // runtime: php74
@@ -34,11 +34,11 @@
 ////////////////////////////////////////////
 
 /** S23, PHP (on GCP, local XAMPP, or CS server) connect to MySQL (on local XAMPP) **/
- $username = 'root';
- $password = '';
- $host = 'localhost';           // default phpMyAdmin port = 3306
- $dbname = 'pokemon';
- $dsn = "mysql:host=$host;dbname=$dbname";
+ //$username = 'root';
+ //$password = '';
+ //$host = 'localhost';           // default phpMyAdmin port = 3306
+ //$dbname = 'pokemon';
+ //$dsn = "mysql:host=$host;dbname=$dbname";
 ////////////////////////////////////////////
 
 /** S23, PHP (on GCP, local XAMPP, or CS server) connect to MySQL (on CS server) **/
@@ -85,14 +85,14 @@ try
    $db = new PDO($dsn, $username, $password);
    
    // dispaly a message to let us know that we are connected to the database 
-   echo "<p>You are connected to the database: $dsn</p>";
+   //echo "<p>You are connected to the database: $dsn</p>";
 }
 catch (PDOException $e)     // handle a PDO exception (errors thrown by the PDO library)
 {
    // Call a method from any object, use the object's name followed by -> and then method's name
    // All exception objects provide a getMessage() method that returns the error message 
    $error_message = $e->getMessage();        
-   echo "<p>An error occurred while connecting to the database: $error_message </p>";
+   //echo "<p>An error occurred while connecting to the database: $error_message </p>";
 }
 catch (Exception $e)       // handle any type of exception
 {

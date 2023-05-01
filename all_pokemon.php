@@ -1,20 +1,23 @@
 <?php include('header.php'); ?>
 <html>
    <head>
+   <title>Pokemon Search</title>
    <link rel="stylesheet" href="text-style2.css">
-  <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/pokemon.css">
-  <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/form.css">
+  <link rel="stylesheet" href="css/pokemon.css">
+  <link rel="stylesheet" href="form.css">
    </head>
    <h1 style="text-align:center;" >View/Search/Filter Pokemon</h1>
-   <form action="all_pokemon.php" method="post">
+   <form action="all_pokemon.php" method="POST">
   <div class="form-group">
     <label for="animal_name">Name:</label>
     <input class="form-control" type="text" id="animal_name" name="animal_name">
   </div>
+  <!--
   <div class="form-group">
     <label for="animal_type">Type:</label>
     <input class="form-control" type="text" id="animal_type" name="animal_type">
   </div>
+   -->
   <div class="form-group">
     <label for="pokemon_type_1">Type1:</label>
     <select class="form-control" id="pokemon_type_1" name="pokemon_type_1">
@@ -41,7 +44,7 @@
   </div>
   <div class="form-group">
     <label for="pokemon_type_2">Type2:</label>
-    <select class="form-control" id="pokemon_type_1" name="pokemon_type_1">
+    <select class="form-control" id="pokemon_type_2" name="pokemon_type_2">
       <option value="" selected disabled hidden>--Select--</option>
       <option value="Normal">Normal</option>
       <option value="Fire">Fire</option>
@@ -67,19 +70,34 @@
 </form>
 </html>
 <?php
+// Turn off all error reporting
+ error_reporting(0);
+ //var_dump($_POST);
+ require_once "connect-db.php";
+ $username = 'root';
+ $password = '';
+ $host = 'localhost';           // default phpMyAdmin port = 3306
+ $dbname = 'pokemon';
+ $dsn = "mysql:host=$host;dbname=$dbname";
+ $db = new PDO($dsn, $username, $password);
+ 
+if(isset($_POST['animal_type'])) {
+   $animal_type = $_POST['animal_type'];
+ }
+ if(isset($_POST['animal_name'])) {
+   $animal_name   = $_POST['animal_name'];
+ }
+ if(isset($_POST['animal_type'])) {
+   $animal_type = $_POST['animal_type'];
+ }
+ if(isset($_POST['pokemon_type_1'])) {
+   $pokemon_type_1 = $_POST["pokemon_type_1"];
 
-$username = 'root';
-$password = 'Tonyle1!';
-$host = 'cs-4750-project-381321:us-east4:cs-4750-project';
-$dbname = 'Pokemon';
-$dsn = "mysql:unix_socket=/cloudsql/cs-4750-project-381321:us-east4:cs-4750-project;dbname=Pokemon";
-
-$animal_type   = $_POST['animal_type'];
-$animal_name   = $_POST['animal_name'];
-$pokemon_type_1 = $_POST['pokemon_type_1'];
-$pokemon_type_2 = $_POST['pokemon_type_2'];
-
-$sql = "SELECT Name, Type1, Type2 FROM pokemon";
+ }
+ if(isset($_POST['pokemon_type_2'])) {
+   $pokemon_type_2 = $_POST["pokemon_type_2"];
+ }
+$sql = "SELECT name, number, Type1, Type2 FROM pokemon";
 
 $type_clause = '';
 if(!empty($pokemon_type_1) and !empty($pokemon_type_2)) {
@@ -97,25 +115,28 @@ try
    
    
    //$type_clause = trim($pokemon_type_1) === '' ? '' : " AND (Type1 IN('$pokemon_type_1', '$pokemon_type_2') OR Type2 IN('$pokemon_type_1', '$pokemon_type_2'))";
-   $sql .= " WHERE Name LIKE '%$animal_name%'";
+   $sql .= " WHERE name LIKE '%$animal_name%'";
    $sql .= $type_clause;
 
-   echo "<p>Query: $sql</p>";
-   echo "<table>
+   
+   //echo "<p>Query: $sql</p>";
+   
+   echo "<table border = '1' width = '100%'>
             <thead>
                <tr>
-                  <th>Name</th>
-                  <th>Type1</th>
-                  <th>Type2</th>
+                  <th><p>Name</p></th>
+                  <th><p>Type1</p></th>
+                  <th><p>Type2</p></th>
                </tr>
                </thead>
                <tbody>";
       
    foreach ($db->query($sql) as $row) {
+      $detail_page_link = "pokemon-detail-view.php?number={$row['number']}";
       echo "<tr>";
-      echo "<td>{$row[Name]}</td>";
-      echo "<td>{$row[Type1]}</td>";
-      echo "<td>{$row[Type2]}</td>";
+      echo "<td><p><a href=$detail_page_link>{$row['name']}</a></p></td>";
+      echo "<td><p>{$row['Type1']}</p></td>";
+      echo "<td><p>{$row['Type2']}</p></td>";
       echo "</tr>";
     //echo "<li>{$row[Name]}<li>";
    }

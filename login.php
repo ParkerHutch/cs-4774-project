@@ -1,7 +1,13 @@
 <?php
 // Start session
-session_start();
-
+if(session_status() !== PHP_SESSION_ACTIVE) session_start();
+/*
+if (session_status() == PHP_SESSION_ACTIVE) {
+    echo "Session has started";
+} else {
+    echo "Session has not started";
+}
+*/
 // Check if user is already logged in, redirect to home page if true
 if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] === true) {
     header("location: home.php");

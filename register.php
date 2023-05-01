@@ -1,5 +1,13 @@
 <?php include('header.php'); ?>
 <?php
+if(session_status() !== PHP_SESSION_ACTIVE) session_start();
+/*
+if (session_status() == PHP_SESSION_ACTIVE) {
+  echo "Session has started";
+} else {
+  echo "Session has not started";
+}
+*/
   require_once('connect-db.php');
 
   $username = $email = $password = '';
@@ -95,10 +103,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Registration Form</title>
-    <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/text-style2.css">
-    <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/pokemon.css">
-    <link rel="stylesheet" href="https://storage.cloud.google.com/pokeapp-pictures/css/form.css">
+	<title>Registration</title>
+    <link rel="stylesheet" href="text-style2.css">
+    <link rel="stylesheet" href="css/pokemon.css">
+    <link rel="stylesheet" href="css/form.css">
 </head>
 <body>
 	<div class="container my-5">
